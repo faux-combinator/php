@@ -29,4 +29,4 @@ check(lex($rules, '_'), [$under_token], "multiple rules can find third");
 check(lex($rules, '=-_'), [$eq_token, $dash_token, $under_token], "multiple rules can match all");
 check(lex($rules, '=-  _'), [$eq_token, $dash_token, $under_token], "multiple rules can match all with space separation");
 
-# TODO: add tests for [ 'x', 'y', function($val){} ] form
+# TODO: implement/add tests for [ 'x', 'y', function($val){} ] form
