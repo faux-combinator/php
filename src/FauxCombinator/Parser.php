@@ -14,7 +14,7 @@ abstract class Parser {
   }
 
   private function run($rule) {
-    $this->{'parse'.ucfirst($rule)}();
+    return $this->{'parse'.ucfirst($rule)}();
   }
 
   /**
@@ -42,8 +42,38 @@ abstract class Parser {
     }
   }
 
-  public function match(Callable $matcher) {
-    call_user_func($matcher);
+  /**
+   * @param string... $matchers list of rules to try.
+   *  At least one has to match!
+   */
+  public function oneOf() {
+    $matchers = func_get_args(); // TODO use greater PHP version
+    foreach ($matchers as $matcher) {
+      if ($result = $this->maybe($matcher)) {
+        return $result;
+      }
+    }
+    throw new ParserException("Unable to parse oneOf cases: " . print_r($matchers, true) . "\nTokens: " . print_r($this->tokens, true));
+  }
+
+  /**
+   * @param string $matcher a rule that'll be matched
+   *  zero or more times
+   */
+  public function anyOf($matcher) {
+    $values = [];
+    while ($value = $this->maybe($matcher)) {
+      $values[] = $value;
+    }
+    return $values;
+  }
+
+  /**
+   * @param string $matcher a rule that'll be matched
+   *  one or more times
+   */
+  public function manyOf($matcher) {
+    return array_merge([$this->run($matcher)], $this->anyOf($matcher));
   }
 
   abstract public function parse();
