@@ -29,4 +29,19 @@ check(lex($rules, '_'), [$under_token], "multiple rules can find third");
 check(lex($rules, '=-_'), [$eq_token, $dash_token, $under_token], "multiple rules can match all");
 check(lex($rules, '=-  _'), [$eq_token, $dash_token, $under_token], "multiple rules can match all with space separation");
 
+try { 
+  lex($rules, '*');
+  fail('Trying to parse a token that has no rule should fail.');
+} catch (RuntimeException $e) {
+  pass('Trying to parse a token that has no rule should fail.');
+}
+
+$rules = [
+  [ '[a-z]+', 'id' ]
+];
+check(lex($rules, 'abc def'), [
+  [ 'type' => 'id', 'value' => 'abc' ],
+  [ 'type' => 'id', 'value' => 'def' ],
+], "capture values correctly");
+
 # TODO: implement/add tests for [ 'x', 'y', function($val){} ] form
