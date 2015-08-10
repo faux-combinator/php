@@ -6,7 +6,7 @@ abstract class Parser {
 
   /**
    * @param Array<Array<String, String>> $tokens
-   *  An array of tokens, constructed by the Lexer
+   *  An array of tokens constructed by the Lexer
    */
   public function __construct(array $tokens) {
     $tokens[] = ['type' => 'eof']; // "end of file" token

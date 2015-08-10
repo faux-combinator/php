@@ -42,6 +42,6 @@ $rules = [
 check(lex($rules, 'abc def'), [
   [ 'type' => 'id', 'value' => 'abc' ],
   [ 'type' => 'id', 'value' => 'def' ],
-], "capture values correctly");
+], "captures values correctly");
 
 # TODO: implement/add tests for [ 'x', 'y', function($val){} ] form
