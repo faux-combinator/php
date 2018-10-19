@@ -4,7 +4,7 @@ use FauxCombinator\Parser;
 use FauxCombinator\ParserException;
 
 $lparen_token = ['type' => 'lparen', 'value' => '('];
-$rparen_token = ['type' => 'rparen', 'value' => '('];
+$rparen_token = ['type' => 'rparen', 'value' => ')'];
 $num_token    = ['type' => 'num', 'value' => '5'];
 $str_token    = ['type' => 'str', 'value' => 'a string here'];
 $id_token     = ['type' => 'id', 'value' => 'a'];
